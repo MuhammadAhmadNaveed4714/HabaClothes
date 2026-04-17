@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --ink: #0D0D0D;
+    --chalk: #F5F2EC;
+    --bone: #E8E2D9;
+    --clay: #B5936B;
+    --rust: #9B4A2A;
+    --sage: #7A8C72;
+    --ink-rgb: 13 13 13;
+    --chalk-rgb: 245 242 236;
+    --bone-rgb: 232 226 217;
+    --clay-rgb: 181 147 107;
+    --rust-rgb: 155 74 42;
+    --sage-rgb: 122 140 114;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--chalk);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background: var(--clay);
+    color: var(--chalk);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bone);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--clay);
+    border-radius: 3px;
+}
+
+@layer components {
+    .btn-primary {
+        @apply bg-ink text-chalk px-8 py-3 font-body font-medium tracking-widest text-xs uppercase hover:bg-rust transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .btn-outline {
+        @apply border border-ink text-ink px-8 py-3 font-body font-medium tracking-widest text-xs uppercase hover:bg-ink hover:text-chalk transition-colors duration-300;
+    }
+
+    .btn-ghost {
+        @apply text-ink font-body font-medium tracking-widest text-xs uppercase hover:text-clay transition-colors duration-300;
+    }
+
+    .input-field {
+        @apply w-full border-b border-ink/30 bg-transparent px-0 py-3 text-sm font-body placeholder:text-ink/40 focus:outline-none focus:border-ink transition-colors duration-300;
+    }
+
+    .label {
+        @apply text-xs font-mono tracking-widest uppercase text-ink/50 mb-2 block;
+    }
+
+    .section-title {
+        @apply font-display text-4xl md:text-5xl font-light leading-tight;
+    }
+
+    .card-hover {
+        @apply transition-all duration-500 hover:-translate-y-1;
+    }
+
+    .skeleton {
+        background: linear-gradient(90deg, var(--bone) 25%, var(--chalk) 50%, var(--bone) 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+    }
+}
+
+/* Staggered animation helpers */
+.animate-delay-100 {
+    animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+    animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+    animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+    animation-delay: 400ms;
+}
+
+/* Cart drawer overlay */
+.cart-overlay {
+    background: rgba(13, 13, 13, 0.4);
+    backdrop-filter: blur(2px);
+}
