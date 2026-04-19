@@ -9,6 +9,11 @@ import { productsApi } from "@/lib/api";
 import { useCartStore } from "@/store/cartStore";
 import clsx from "clsx";
 
+const getFallbackProductImage = (name: string) => {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800"><rect width="100%" height="100%" fill="#E8E2D9"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#0D0D0D" font-family="Arial, sans-serif" font-size="30">${name}</text></svg>`;
+    return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+};
+
 export default function ProductDetailPage() {
     const { id } = useParams<{ id: string }>();
     const [product, setProduct] = useState<Product | null>(null);
@@ -108,7 +113,7 @@ export default function ProductDetailPage() {
                     {/* Image */}
                     <div className="relative aspect-[3/4] bg-bone overflow-hidden">
                         <Image
-                            src={product.imageUrl || `https://via.placeholder.com/600x800/E8E2D9/0D0D0D?text=${encodeURIComponent(product.name)}`}
+                            src={product.imageUrl || getFallbackProductImage(product.name)}
                             alt={product.name}
                             fill
                             className="object-cover"

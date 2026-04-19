@@ -1,12 +1,42 @@
 "use client";
 import { X, Trash2, Plus, Minus } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
+
+const WHATSAPP_BUSINESS_NUMBER = "03123456789";
+
+const getWhatsAppPhone = (phone: string) => {
+    const digits = phone.replace(/\D/g, "");
+    if (digits.startsWith("0")) return `92${digits.slice(1)}`;
+    if (digits.startsWith("92")) return digits;
+    return digits;
+};
 
 export function CartDrawer() {
     const { items, isOpen, toggleCart, removeItem, updateQuantity, total } = useCartStore();
     const totalPrice = total();
+
+    const handleCheckoutOnWhatsApp = () => {
+        const lines = items.map((item, index) => {
+            const size = item.size ? ` | Size: ${item.size}` : "";
+            const color = item.color ? ` | Color: ${item.color}` : "";
+            const lineTotal = item.product.price * item.quantity;
+            return `${index + 1}. ${item.product.name} x${item.quantity}${size}${color} | $${lineTotal.toFixed(2)}`;
+        });
+
+        const message = [
+            "Hello, I want to place this order:",
+            "",
+            ...lines,
+            "",
+            `Total: $${totalPrice.toFixed(2)}`,
+        ].join("\n");
+
+        const phone = getWhatsAppPhone(WHATSAPP_BUSINESS_NUMBER);
+        const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        toggleCart();
+        window.location.href = url;
+    };
 
     if (!isOpen) return null;
 
@@ -106,9 +136,9 @@ export function CartDrawer() {
                             <span className="font-display text-2xl">${totalPrice.toFixed(2)}</span>
                         </div>
                         <p className="font-mono text-xs text-ink/40">Shipping calculated at checkout</p>
-                        <Link href="/checkout" onClick={toggleCart} className="btn-primary w-full text-center block">
+                        <button onClick={handleCheckoutOnWhatsApp} className="btn-primary w-full text-center block">
                             Proceed to Checkout
-                        </Link>
+                        </button>
                         <button onClick={toggleCart} className="btn-ghost w-full text-center">
                             Continue Shopping
                         </button>

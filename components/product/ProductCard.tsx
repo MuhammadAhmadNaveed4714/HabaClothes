@@ -12,6 +12,11 @@ interface ProductCardProps {
     className?: string;
 }
 
+const getFallbackProductImage = (name: string) => {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="533" viewBox="0 0 400 533"><rect width="100%" height="100%" fill="#E8E2D9"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#0D0D0D" font-family="Arial, sans-serif" font-size="20">${name}</text></svg>`;
+    return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+};
+
 export function ProductCard({ product, className }: ProductCardProps) {
     const [wishlist, setWishlist] = useState(false);
     const [added, setAdded] = useState(false);
@@ -30,7 +35,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
                 {/* Image container */}
                 <div className="relative aspect-[3/4] bg-bone overflow-hidden mb-4">
                     <Image
-                        src={product.imageUrl || `https://via.placeholder.com/400x533/E8E2D9/0D0D0D?text=${encodeURIComponent(product.name)}`}
+                        src={product.imageUrl || getFallbackProductImage(product.name)}
                         alt={product.name}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"

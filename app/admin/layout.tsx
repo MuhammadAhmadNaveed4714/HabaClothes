@@ -16,16 +16,18 @@ const navItems = [
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, user, logout } = useAuthStore();
+  const { isAuthenticated, hasHydrated, user, logout } = useAuthStore();
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
+    if (!hasHydrated) return;
     if (!isAuthenticated || user?.role !== "Admin") {
-      router.push("/auth/login");
+      router.push("/login");
     }
-  }, [isAuthenticated, user, router]);
+  }, [hasHydrated, isAuthenticated, user, router]);
 
+  if (!hasHydrated) return null;
   if (!isAuthenticated || user?.role !== "Admin") return null;
 
   return (

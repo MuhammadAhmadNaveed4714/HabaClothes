@@ -55,7 +55,7 @@ export function Navbar() {
                         <div className="flex items-center gap-4 md:gap-6">
                             {isAuthenticated ? (
                                 <div className="hidden md:flex items-center gap-1 group relative">
-                                    <button className="font-mono text-xs tracking-widest uppercase text-ink/70 hover:text-ink flex items-center gap-1 transition-colors">
+                                    <button className={`font-mono text-xs tracking-widest uppercase flex items-center gap-1 transition-colors ${mutedTextClass}`}>
                                         <User size={14} />
                                         {user?.firstName}
                                         <ChevronDown size={12} />
@@ -126,6 +126,9 @@ export function Navbar() {
                                     {user?.role === "Admin" && (
                                         <Link href="/admin" onClick={() => setMobileOpen(false)} className="font-mono text-sm tracking-widest uppercase">Admin Panel</Link>
                                     )}
+                                    <Link href="/profile" onClick={() => setMobileOpen(false)} className="font-mono text-sm tracking-widest uppercase">
+                                        Profile
+                                    </Link>
                                     <button onClick={() => { logout(); setMobileOpen(false); }} className="text-left font-mono text-sm tracking-widest uppercase text-rust">
                                         Sign Out
                                     </button>

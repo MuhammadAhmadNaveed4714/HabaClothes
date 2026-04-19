@@ -7,8 +7,10 @@ interface AuthState {
     user: User | null;
     token: string | null;
     isAuthenticated: boolean;
+    hasHydrated: boolean;
     setAuth: (user: User, token: string) => void;
     logout: () => void;
+    setHasHydrated: (value: boolean) => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -25,8 +27,16 @@ export const useAuthStore = create<AuthState>()(
             user: null,
             token: null,
             isAuthenticated: false,
+            hasHydrated: false,
+            setHasHydrated: (value) => set({ hasHydrated: value }),
             setAuth: (user, token) => {
-                Cookies.set("haba_token", token, { expires: 7, secure: true });
+                const isHttps = typeof window !== "undefined" && window.location.protocol === "https:";
+                Cookies.set("haba_token", token, {
+                    expires: 7,
+                    secure: isHttps,
+                    sameSite: "lax",
+                    path: "/",
+                });
                 set({ user, token, isAuthenticated: true });
             },
             logout: () => {
@@ -37,6 +47,9 @@ export const useAuthStore = create<AuthState>()(
         {
             name: "haba-auth",
             partialize: (s: AuthState) => ({ user: s.user, token: s.token, isAuthenticated: s.isAuthenticated }),
+            onRehydrateStorage: () => (state) => {
+                state?.setHasHydrated(true);
+            },
         }
     )
 );
