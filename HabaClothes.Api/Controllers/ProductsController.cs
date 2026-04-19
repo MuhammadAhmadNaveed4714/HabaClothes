@@ -12,10 +12,12 @@ namespace HabaClothes.Api.Controllers;
 public class ProductsController : ControllerBase
 {
     private readonly AppDbContext _db;
+    private readonly IWebHostEnvironment _env;
 
-    public ProductsController(AppDbContext db)
+    public ProductsController(AppDbContext db, IWebHostEnvironment env)
     {
         _db = db;
+        _env = env;
     }
 
     [HttpGet]
@@ -51,14 +53,15 @@ public class ProductsController : ControllerBase
 
     [Authorize(Roles = "Admin")]
     [HttpPost]
-    public async Task<ActionResult<Product>> Create(ProductRequest request)
+    public async Task<ActionResult<Product>> Create([FromForm] ProductFormRequest request)
     {
+        var imageUrl = await SaveImageAsync(request.Image, request.ImageUrl);
         var product = new Product
         {
             Name = request.Name,
             Description = request.Description,
             Price = request.Price,
-            ImageUrl = request.ImageUrl,
+            ImageUrl = imageUrl,
             Category = request.Category,
             Stock = request.Stock,
             Sizes = request.Sizes,
@@ -73,7 +76,7 @@ public class ProductsController : ControllerBase
 
     [Authorize(Roles = "Admin")]
     [HttpPut("{id:int}")]
-    public async Task<ActionResult<Product>> Update(int id, ProductRequest request)
+    public async Task<ActionResult<Product>> Update(int id, [FromForm] ProductFormRequest request)
     {
         var product = await _db.Products.FindAsync(id);
         if (product == null)
@@ -81,10 +84,14 @@ public class ProductsController : ControllerBase
             return NotFound();
         }
 
+        var imageUrl = await SaveImageAsync(request.Image, request.ImageUrl);
         product.Name = request.Name;
         product.Description = request.Description;
         product.Price = request.Price;
-        product.ImageUrl = request.ImageUrl;
+        if (!string.IsNullOrWhiteSpace(imageUrl))
+        {
+            product.ImageUrl = imageUrl;
+        }
         product.Category = request.Category;
         product.Stock = request.Stock;
         product.Sizes = request.Sizes;
@@ -109,5 +116,25 @@ public class ProductsController : ControllerBase
         await _db.SaveChangesAsync();
 
         return NoContent();
+    }
+
+    private async Task<string> SaveImageAsync(IFormFile? image, string? fallbackUrl)
+    {
+        if (image == null || image.Length == 0)
+        {
+            return fallbackUrl?.Trim() ?? string.Empty;
+        }
+
+        var uploadsRoot = Path.Combine(_env.WebRootPath ?? Path.Combine(_env.ContentRootPath, "wwwroot"), "uploads");
+        Directory.CreateDirectory(uploadsRoot);
+
+        var extension = Path.GetExtension(image.FileName);
+        var fileName = $"{Guid.NewGuid():N}{extension}";
+        var filePath = Path.Combine(uploadsRoot, fileName);
+
+        await using var stream = System.IO.File.Create(filePath);
+        await image.CopyToAsync(stream);
+
+        return $"/uploads/{fileName}";
     }
 }

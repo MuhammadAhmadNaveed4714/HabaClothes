@@ -40,23 +40,13 @@ public static class DbSeeder
                 Name = "Canvas Tote",
                 Description = "Durable canvas tote with reinforced straps.",
                 Price = 48,
-                ImageUrl = "https://via.placeholder.com/400x533/E8E2D9/0D0D0D?text=Canvas%20Tote",
+                ImageUrl = "https://encry pted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHHLKk-bKTWg1Mhjsi_xSqLKeNhEZknpRnmA&s",
                 Category = "Accessories",
                 Stock = 24,
                 Sizes = "One Size",
                 Colors = "Clay,Sage"
             },
-            new()
-            {
-                Name = "Linen Shirt",
-                Description = "Breathable linen shirt for warm days.",
-                Price = 86,
-                ImageUrl = "https://via.placeholder.com/400x533/E8E2D9/0D0D0D?text=Linen%20Shirt",
-                Category = "Tops",
-                Stock = 18,
-                Sizes = "S,M,L,XL",
-                Colors = "Chalk,Ink"
-            }
+           
         };
 
         db.Users.AddRange(admin, customer);
