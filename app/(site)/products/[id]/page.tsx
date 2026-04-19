@@ -96,7 +96,7 @@ export default function ProductDetailPage() {
         {
             id: "shipping",
             title: "Shipping & Returns",
-            content: "Free standard shipping on orders over $150. Express delivery available. Returns accepted within 30 days of purchase — items must be unworn and in original condition.",
+            content: "Free standard shipping on orders over PKR 150. Express delivery available. Returns accepted within 30 days of purchase — items must be unworn and in original condition.",
         },
     ];
 
@@ -130,7 +130,7 @@ export default function ProductDetailPage() {
                             {product.name}
                         </h1>
                         <p className="font-display text-3xl text-clay mb-8">
-                            ${product.price.toFixed(2)}
+                            PKR {product.price.toFixed(2)}
                         </p>
 
                         {/* Color */}

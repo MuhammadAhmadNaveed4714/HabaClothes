@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { Loader2 } from "lucide-react";
 import { Eye, EyeOff } from "lucide-react";
 import { authApi } from "@/lib/api";
 import { useAuthStore } from "@/store/authStore";
@@ -157,7 +158,8 @@ export default function RegisterPage() {
               <a href="#" className="underline hover:text-ink">Privacy Policy</a>.
             </p>
 
-            <button type="submit" disabled={loading} className="btn-primary w-full">
+            <button type="submit" disabled={loading} className="btn-primary w-full inline-flex items-center justify-center gap-2">
+              {loading && <Loader2 size={14} className="animate-spin" />}
               {loading ? "Creating Account..." : "Create Account"}
             </button>
           </form>

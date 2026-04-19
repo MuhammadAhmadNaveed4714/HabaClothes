@@ -6,7 +6,7 @@ import { Product } from "@/types";
 import { productsApi } from "@/lib/api";
 import { ProductCard, ProductCardSkeleton } from "@/components/product/ProductCard";
 
-const CATEGORIES = ["All", "Women", "Men", "Accessories", "New Arrivals", "Sale"];
+const CATEGORIES = ["All", "Collections", "Seasonal", "Basics", "Accessories", "New Arrivals"];
 const SORT_OPTIONS = [
   { label: "Newest", value: "newest" },
   { label: "Price: Low to High", value: "price_asc" },

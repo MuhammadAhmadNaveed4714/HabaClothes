@@ -4,7 +4,7 @@ import {
   BarChart3,
   TrendingUp,
   ShoppingBag,
-  DollarSign,
+  Banknote,
   Receipt,
   Layers,
   RefreshCw,
@@ -30,9 +30,10 @@ type KpiCard = {
 };
 
 const formatCurrency = (value: number) =>
-  new Intl.NumberFormat("en-US", {
+  new Intl.NumberFormat("en-PK", {
     style: "currency",
-    currency: "USD",
+    currency: "PKR",
+    currencyDisplay: "code",
     maximumFractionDigits: 0,
   }).format(value);
 
@@ -206,7 +207,7 @@ export default function AdminAnalyticsPage() {
         label: `Revenue (${range}d)`,
         value: formatCurrency(totalRevenue),
         helper: `${totalOrders} orders`,
-        icon: DollarSign,
+        icon: Banknote,
       },
       {
         label: "Average Order",
@@ -291,19 +292,19 @@ export default function AdminAnalyticsPage() {
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <section className="xl:col-span-2 bg-chalk border border-bone p-6">
+        <section className="xl:col-span-2 bg-chalk border border-bone p-6 overflow-hidden">
           <div className="flex items-center gap-2 mb-6">
             <BarChart3 size={16} className="text-ink/40" />
             <h2 className="font-mono text-xs tracking-widest uppercase">Revenue Trend</h2>
           </div>
 
-          <div className="h-56 flex items-end gap-1.5">
+          <div className="h-56 flex items-end gap-1.5 overflow-x-auto pb-2">
             {analytics.trend.map((point) => {
               const barHeight = analytics.maxRevenue > 0 ? Math.max(4, (point.revenue / analytics.maxRevenue) * 100) : 4;
               return (
-                <div key={point.label} className="group flex-1 flex flex-col items-center justify-end">
+                <div key={point.label} className="group flex-1 flex flex-col items-center justify-end min-w-max md:min-w-0">
                   <div className="w-full bg-clay/80 group-hover:bg-rust transition-colors" style={{ height: `${barHeight}%` }} />
-                  <p className="mt-2 font-mono text-[9px] tracking-widest uppercase text-ink/35 hidden sm:block">
+                  <p className="mt-2 font-mono text-[8px] tracking-widest uppercase text-ink/35 hidden sm:block w-full text-center">
                     {point.label}
                   </p>
                 </div>
@@ -311,22 +312,22 @@ export default function AdminAnalyticsPage() {
             })}
           </div>
 
-          <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="border border-bone px-3 py-2">
-              <p className="font-mono text-[10px] tracking-widest uppercase text-ink/40 mb-1">Peak Day</p>
-              <p className="font-body text-sm text-ink/80">
+          <div className="mt-8 grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-4">
+            <div className="border border-bone px-2 sm:px-4 py-3 bg-chalk/40 min-w-0">
+              <p className="font-mono text-[8px] sm:text-[10px] tracking-widest uppercase text-ink/40 mb-2">Peak Day</p>
+              <p className="font-body text-xs sm:text-base font-medium text-ink/80 truncate">
                 {analytics.trend.reduce((top, row) => (row.revenue > top.revenue ? row : top), analytics.trend[0] || { label: "—", revenue: 0, orders: 0, date: new Date() }).label}
               </p>
             </div>
-            <div className="border border-bone px-3 py-2">
-              <p className="font-mono text-[10px] tracking-widest uppercase text-ink/40 mb-1">Peak Revenue</p>
-              <p className="font-body text-sm text-ink/80">
+            <div className="border border-bone px-2 sm:px-4 py-3 bg-chalk/40 min-w-0">
+              <p className="font-mono text-[8px] sm:text-[10px] tracking-widest uppercase text-ink/40 mb-2">Peak Revenue</p>
+              <p className="font-body text-xs sm:text-base font-medium text-ink/80 truncate">
                 {formatCurrency(analytics.maxRevenue)}
               </p>
             </div>
-            <div className="border border-bone px-3 py-2">
-              <p className="font-mono text-[10px] tracking-widest uppercase text-ink/40 mb-1">Total Days</p>
-              <p className="font-body text-sm text-ink/80">{range}</p>
+            <div className="border border-bone px-2 sm:px-4 py-3 bg-chalk/40 min-w-0">
+              <p className="font-mono text-[8px] sm:text-[10px] tracking-widest uppercase text-ink/40 mb-2">Total Days</p>
+              <p className="font-body text-xs sm:text-base font-medium text-ink/80">{range}</p>
             </div>
           </div>
         </section>

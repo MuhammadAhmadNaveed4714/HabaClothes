@@ -85,7 +85,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
                 <div className="space-y-1">
                     <p className="font-mono text-[10px] tracking-widest uppercase text-ink/40">{product.category}</p>
                     <h3 className="font-body text-sm font-medium text-ink leading-snug">{product.name}</h3>
-                    <p className="font-mono text-sm text-clay">${product.price.toFixed(2)}</p>
+                    <p className="font-mono text-sm text-clay">PKR {product.price.toFixed(2)}</p>
                 </div>
             </Link>
         </div>

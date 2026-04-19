@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 import { authApi } from "@/lib/api";
@@ -103,7 +104,8 @@ export default function LoginPage() {
               </div>
             )}
 
-            <button type="submit" disabled={loading} className="btn-primary w-full">
+            <button type="submit" disabled={loading} className="btn-primary w-full inline-flex items-center justify-center gap-2">
+              {loading && <Loader2 size={14} className="animate-spin" />}
               {loading ? "Signing in..." : "Sign In"}
             </button>
           </form>

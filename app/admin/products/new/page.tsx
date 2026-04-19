@@ -1,7 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Save, UploadCloud } from "lucide-react";
+import { Save, UploadCloud, Loader2 } from "lucide-react";
 import { AxiosError } from "axios";
 import { productsApi } from "@/lib/api";
 
@@ -31,7 +31,6 @@ export default function AdminAddProductPage() {
   const [stock, setStock] = useState("");
   const [sizes, setSizes] = useState("");
   const [colors, setColors] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -57,7 +56,6 @@ export default function AdminAddProductPage() {
     formData.append("category", category);
     formData.append("price", price);
     formData.append("stock", stock || "0");
-    formData.append("imageUrl", imageUrl || "");
 
     const sizeList = parseList(sizes);
     const colorList = parseList(colors);
@@ -189,16 +187,7 @@ export default function AdminAddProductPage() {
           <div className="px-6 py-4 border-b border-bone">
             <h2 className="font-mono text-xs tracking-widest uppercase">Product Image</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 py-6">
-            <label className="space-y-2">
-              <span className="font-mono text-xs tracking-widest uppercase text-ink/40">Image URL</span>
-              <input
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                className="w-full border border-bone bg-transparent px-4 py-2 font-body text-sm focus:outline-none focus:border-ink"
-                placeholder="https://example.com/image.jpg"
-              />
-            </label>
+          <div className="grid grid-cols-1 gap-6 px-6 py-6">
             <label className="flex flex-col gap-3 border border-dashed border-bone px-6 py-8 items-center justify-center text-center">
               <UploadCloud size={20} className="text-ink/40" />
               <span className="font-mono text-xs tracking-widest uppercase text-ink/40">Upload image</span>
@@ -209,11 +198,11 @@ export default function AdminAddProductPage() {
                 className="text-xs"
               />
             </label>
-            <div className="border border-bone bg-bone/20 flex items-center justify-center min-h-[180px]">
+            <div className="border border-bone bg-bone/20 flex items-center justify-center min-h-[200px]">
               {imagePreview ? (
-                <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                <img src={imagePreview} alt="Preview" className="w-full h-full object-cover max-w-sm max-h-[200px]" />
               ) : (
-                <span className="font-mono text-xs text-ink/40">No image selected</span>
+                <span className="font-mono text-xs text-ink/40">Upload an image to see preview</span>
               )}
             </div>
           </div>
@@ -226,10 +215,14 @@ export default function AdminAddProductPage() {
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center gap-2 border border-ink px-5 py-2 font-mono text-xs tracking-widest uppercase hover:bg-ink hover:text-chalk transition-colors disabled:opacity-60"
+            className="inline-flex items-center gap-2 border border-ink px-5 py-2 font-mono text-xs tracking-widest uppercase hover:bg-ink hover:text-chalk transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            <Save size={14} />
-            Save product
+            {loading ? (
+              <Loader2 size={14} className="animate-spin" />
+            ) : (
+              <Save size={14} />
+            )}
+            {loading ? "Saving..." : "Save product"}
           </button>
         </div>
       </form>

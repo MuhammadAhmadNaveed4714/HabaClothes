@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import { Save, Shield, Bell, Store, UserRound } from "lucide-react";
+import { Save, Shield, Bell, Store, UserRound, Loader2 } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
 
 export default function AdminSettingsPage() {
@@ -14,7 +14,7 @@ export default function AdminSettingsPage() {
   const [storeName, setStoreName] = useState("");
   const [supportEmail, setSupportEmail] = useState(user?.email ?? "");
   const [supportPhone, setSupportPhone] = useState("");
-  const [currency, setCurrency] = useState("USD");
+  const [currency, setCurrency] = useState("PKR");
   const [timezone, setTimezone] = useState("UTC");
   const [notifyOrders, setNotifyOrders] = useState(true);
   const [notifyLowStock, setNotifyLowStock] = useState(true);
@@ -23,11 +23,17 @@ export default function AdminSettingsPage() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
 
-  const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSaved(true);
-    window.setTimeout(() => setSaved(false), 2000);
+    setSaving(true);
+    // Simulate API call
+    setTimeout(() => {
+      setSaved(true);
+      setSaving(false);
+      setTimeout(() => setSaved(false), 2000);
+    }, 800);
   };
 
   return (
@@ -79,8 +85,7 @@ export default function AdminSettingsPage() {
                 onChange={(e) => setCurrency(e.target.value)}
                 className="w-full border border-bone bg-transparent px-4 py-2 font-body text-sm focus:outline-none focus:border-ink"
               >
-                <option value="USD">PKR</option>
-                <option value="USD">USD</option>
+                <option value="PKR">PKR</option>
                 <option value="EUR">EUR</option>
                 <option value="GBP">GBP</option>
                 <option value="AED">AED</option>
@@ -210,14 +215,19 @@ export default function AdminSettingsPage() {
 
         <div className="flex items-center justify-between">
           <p className="font-mono text-xs text-ink/40 tracking-widest">
-            {saved ? "Settings saved" : "Changes are saved locally"}
+            {saving ? "Saving settings..." : saved ? "Settings saved" : "Changes are saved locally"}
           </p>
           <button
             type="submit"
-            className="inline-flex items-center gap-2 border border-ink px-5 py-2 font-mono text-xs tracking-widest uppercase hover:bg-ink hover:text-chalk transition-colors"
+            disabled={saving}
+            className="inline-flex items-center gap-2 border border-ink px-5 py-2 font-mono text-xs tracking-widest uppercase hover:bg-ink hover:text-chalk transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            <Save size={14} />
-            Save changes
+            {saving ? (
+              <Loader2 size={14} className="animate-spin" />
+            ) : (
+              <Save size={14} />
+            )}
+            {saving ? "Saving..." : "Save changes"}
           </button>
         </div>
       </form>

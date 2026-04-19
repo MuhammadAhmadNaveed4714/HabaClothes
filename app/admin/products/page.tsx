@@ -1,14 +1,15 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Package, Search, Plus } from "lucide-react";
+import { Package, Search, Plus, Loader2 } from "lucide-react";
 import { productsApi } from "@/lib/api";
 import { Product } from "@/types";
 
 const formatCurrency = (value: number) =>
-  new Intl.NumberFormat("en-US", {
+  new Intl.NumberFormat("en-PK", {
     style: "currency",
-    currency: "USD",
+    currency: "PKR",
+    currencyDisplay: "code",
     maximumFractionDigits: 0,
   }).format(value);
 
@@ -217,9 +218,16 @@ export default function AdminProductsPage() {
                             type="button"
                             onClick={() => handleDelete(product)}
                             disabled={deletingId === product.id}
-                            className="font-mono text-[10px] tracking-widest uppercase text-rust hover:text-ink transition-colors disabled:opacity-60"
+                            className="font-mono text-[10px] tracking-widest uppercase text-rust hover:text-ink transition-colors disabled:opacity-60 inline-flex items-center gap-1"
                           >
-                            {deletingId === product.id ? "Deleting" : "Delete"}
+                            {deletingId === product.id ? (
+                              <>
+                                <Loader2 size={10} className="animate-spin" />
+                                Deleting
+                              </>
+                            ) : (
+                              "Delete"
+                            )}
                           </button>
                         </div>
                       </td>

@@ -5,7 +5,7 @@ import { ShoppingBag, User, Menu, X, ChevronDown } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useAuthStore } from "@/store/authStore";
 
-const categories = ["Women", "Men", "Accessories", "New Arrivals", "Sale"];
+const categories = ["Collections", "Seasonal", "Basics", "Accessories", "New Arrivals"];
 
 export function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -87,11 +87,9 @@ export function Navbar() {
                                 aria-label="Open cart"
                             >
                                 <ShoppingBag size={20} strokeWidth={1.5} />
-                                {count > 0 && (
-                                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-rust text-chalk text-[10px] font-mono flex items-center justify-center rounded-full">
-                                        {count}
-                                    </span>
-                                )}
+                                <span suppressHydrationWarning className={`absolute -top-1 -right-1 w-4 h-4 bg-rust text-chalk text-[10px] font-mono flex items-center justify-center rounded-full transition-opacity ${count > 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                                    {count}
+                                </span>
                             </button>
 
                             {/* Mobile menu toggle */}

@@ -3,9 +3,9 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 const featuredCategories = [
-    { name: "Women", href: "/products?category=women", label: "New Collection" },
-    { name: "Men", href: "/products?category=men", label: "Essential Pieces" },
-    { name: "Accessories", href: "/products?category=accessories", label: "Complete the Look" },
+    { name: "Collections", href: "/products?category=collections", label: "Curated for Her" },
+    { name: "Seasonal", href: "/products?category=seasonal", label: "Latest Trends" },
+    { name: "Basics", href: "/products?category=basics", label: "Essentials" },
 ];
 
 export default function HomePage() {
@@ -59,21 +59,21 @@ export default function HomePage() {
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-                        {featuredCategories.map((cat, i) => (
+                    <div className="flex gap-4 md:gap-6 overflow-x-auto pb-4 scroll-smooth">
+                        {featuredCategories.map((cat) => (
                             <Link
                                 key={cat.name}
                                 href={cat.href}
-                                className={`relative group overflow-hidden card-hover ${i === 0 ? "md:row-span-2 h-96 md:h-auto" : "h-56"}`}
+                                className="relative group overflow-hidden card-hover flex-shrink-0 w-full sm:w-96 h-56 md:h-64"
                             >
                                 <div className="absolute inset-0 bg-bone" />
                                 {/* Placeholder gradient */}
                                 <div
                                     className="absolute inset-0 opacity-60 transition-transform duration-700 group-hover:scale-105"
                                     style={{
-                                        background: i === 0
+                                        background: cat.name === "Collections"
                                             ? "linear-gradient(135deg, #B5936B 0%, #7A8C72 100%)"
-                                            : i === 1
+                                            : cat.name === "Seasonal"
                                                 ? "linear-gradient(135deg, #9B4A2A 0%, #B5936B 100%)"
                                                 : "linear-gradient(135deg, #C5CBD8 0%, #7A8C72 100%)",
                                     }}
@@ -117,31 +117,52 @@ export default function HomePage() {
             </section>
 
             {/* Footer */}
-            <footer className="bg-chalk border-t border-bone px-6 md:px-12 py-12">
-                <div className="max-w-screen-xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-                    {[
-                        { title: "Shop", links: ["Women", "Men", "Accessories", "New Arrivals"] },
-                        { title: "Help", links: ["Sizing Guide", "Shipping & Returns", "FAQ", "Contact"] },
-                        { title: "Company", links: ["About", "Sustainability", "Press", "Careers"] },
-                        { title: "Follow", links: ["Instagram", "Pinterest", "TikTok", "Newsletter"] },
-                    ].map((col) => (
-                        <div key={col.title}>
-                            <h4 className="font-mono text-xs tracking-widest uppercase text-ink/50 mb-4">{col.title}</h4>
-                            <ul className="space-y-3">
-                                {col.links.map((link) => (
-                                    <li key={link}>
-                                        <a href="#" className="font-body text-sm text-ink/70 hover:text-ink transition-colors">
-                                            {link}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
-                </div>
-                <div className="mt-12 pt-8 border-t border-bone flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="font-display text-2xl font-light tracking-widest text-ink/30">HABA</p>
-                    <p className="font-mono text-xs text-ink/30">© 2025 HabaClothes. All rights reserved.</p>
+            <footer className="relative bg-chalk border-t border-bone px-6 md:px-12 overflow-hidden">
+                {/* Decorative wave background */}
+                <div 
+                    className="absolute top-0 left-0 right-0 h-16 opacity-8 pointer-events-none"
+                    style={{
+                        background: "linear-gradient(90deg, transparent 0%, rgba(181, 147, 107, 0.15) 50%, transparent 100%)",
+                        maskImage: "radial-gradient(ellipse 100% 100% at 50% 0%, transparent 0%, black 100%)",
+                        WebkitMaskImage: "radial-gradient(ellipse 100% 100% at 50% 0%, transparent 0%, black 100%)",
+                    }}
+                />
+                
+                <div className="relative z-10 max-w-screen-xl mx-auto py-16">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12">
+                        {[
+                            { title: "Shop", links: ["Collections", "Seasonal", "Basics", "Accessories", "New Arrivals"] },
+                            { title: "Help", links: ["Sizing Guide", "Shipping & Returns", "FAQ", "Contact"] },
+                            { title: "Company", links: ["About", "Sustainability", "Press", "Careers"] },
+                            { title: "Follow", links: ["Instagram", "Pinterest", "TikTok", "Newsletter"] },
+                        ].map((col) => (
+                            <div key={col.title} className="space-y-4">
+                                <h4 className="font-mono text-xs tracking-widest uppercase text-ink/50 font-medium">{col.title}</h4>
+                                <ul className="space-y-3">
+                                    {col.links.map((link) => (
+                                        <li key={link}>
+                                            <a 
+                                                href="#" 
+                                                className="font-body text-sm text-ink/60 hover:text-clay transition-colors duration-200 inline-block relative group"
+                                            >
+                                                {link}
+                                                <span className="absolute bottom-0 left-0 w-0 h-px bg-clay transition-all duration-300 group-hover:w-full" />
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Divider */}
+                    <div className="h-px bg-gradient-to-r from-transparent via-bone to-transparent mb-8" />
+
+                    {/* Bottom section */}
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4">
+                        <p className="font-display text-lg md:text-xl font-light tracking-widest text-ink/40">HABA</p>
+                        <p className="font-mono text-xs text-ink/40 text-center md:text-right">© 2025 HabaClothes. All rights reserved.</p>
+                    </div>
                 </div>
             </footer>
         </div>

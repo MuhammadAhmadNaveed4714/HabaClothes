@@ -21,7 +21,7 @@ export function CartDrawer() {
             const size = item.size ? ` | Size: ${item.size}` : "";
             const color = item.color ? ` | Color: ${item.color}` : "";
             const lineTotal = item.product.price * item.quantity;
-            return `${index + 1}. ${item.product.name} x${item.quantity}${size}${color} | $${lineTotal.toFixed(2)}`;
+            return `${index + 1}. ${item.product.name} x${item.quantity}${size}${color} | PKR ${lineTotal.toFixed(2)}`;
         });
 
         const message = [
@@ -29,7 +29,7 @@ export function CartDrawer() {
             "",
             ...lines,
             "",
-            `Total: $${totalPrice.toFixed(2)}`,
+            `Total: PKR ${totalPrice.toFixed(2)}`,
         ].join("\n");
 
         const phone = getWhatsAppPhone(WHATSAPP_BUSINESS_NUMBER);
@@ -94,7 +94,7 @@ export function CartDrawer() {
                                             <p className="font-mono text-xs text-ink/50 mt-0.5">Size: {item.size}</p>
                                         )}
                                         <p className="font-mono text-xs text-clay mt-1">
-                                            ${item.product.price.toFixed(2)}
+                                            PKR {item.product.price.toFixed(2)}
                                         </p>
 
                                         {/* Qty controls */}
@@ -133,7 +133,7 @@ export function CartDrawer() {
                     <div className="px-6 py-6 border-t border-bone space-y-4">
                         <div className="flex justify-between items-center">
                             <span className="font-mono text-xs tracking-widest uppercase text-ink/50">Total</span>
-                            <span className="font-display text-2xl">${totalPrice.toFixed(2)}</span>
+                            <span className="font-display text-2xl">PKR {totalPrice.toFixed(2)}</span>
                         </div>
                         <p className="font-mono text-xs text-ink/40">Shipping calculated at checkout</p>
                         <button onClick={handleCheckoutOnWhatsApp} className="btn-primary w-full text-center block">

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Save, UploadCloud } from "lucide-react";
+import { Save, UploadCloud, Loader2 } from "lucide-react";
 import { AxiosError } from "axios";
 import { productsApi } from "@/lib/api";
 import { Product } from "@/types";
@@ -259,10 +259,14 @@ export default function AdminEditProductPage({ params }: { params: { id: string 
             <button
               type="submit"
               disabled={saving}
-              className="inline-flex items-center gap-2 border border-ink px-5 py-2 font-mono text-xs tracking-widest uppercase hover:bg-ink hover:text-chalk transition-colors disabled:opacity-60"
+              className="inline-flex items-center gap-2 border border-ink px-5 py-2 font-mono text-xs tracking-widest uppercase hover:bg-ink hover:text-chalk transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              <Save size={14} />
-              Update product
+              {saving ? (
+                <Loader2 size={14} className="animate-spin" />
+              ) : (
+                <Save size={14} />
+              )}
+              {saving ? "Updating..." : "Update product"}
             </button>
           </div>
         </form>
