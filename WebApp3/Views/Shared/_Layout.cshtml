@@ -1,0 +1,51 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]_Haba Clothes</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/Project_Based_Learning.styles.css" asp-append-version="true" />
+    <style>
+
+
+        body {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <partial name="~/Views/Shared/_Navbar.cshtml" />
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+       
+        <div class="container">
+            &copy; @DateTime.Now.Year Haba Clothes&nbsp;
+            <a asp-area="" asp-controller="Product" asp-action="Index">
+                <i class="fas fa-box"></i> Products
+            </a>&nbsp;
+            <a asp-area="" asp-controller="Home" asp-action="Contact">
+                <i class="fas fa-envelope"></i> Contact Us
+            </a>
+        </div>
+    </footer>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html> 

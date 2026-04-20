@@ -1,0 +1,67 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container mt-5 text-center">
+
+    <!-- Product Image -->
+    <img id="productImage"
+         src="@(Model.FrontImageUrl ?? "/images/default.png")"
+         class="img-fluid mb-4 product-img"
+         style="max-height:300px; object-fit:cover; display:block; margin:auto;" />
+
+    <!-- Navigation Arrows -->
+    <div class="mb-3">
+        <button class="btn btn-outline-primary me-2"
+                onclick="showBack()">
+            &lt;--
+        </button>
+
+        <button class="btn btn-outline-secondary"
+                onclick="showFront()">
+            --&gt;
+        </button>
+    </div>
+
+    <!-- Product Name -->
+    <h2>@Model.Name</h2>
+
+    <!-- Description -->
+    <p class="fs-5">
+        It has 
+        <span class="text-primary fw-semibold">
+            @(Model.Description ?? "No description available")
+        </span>.
+    </p>
+
+    <!-- Price -->
+    <p class="fs-5 text-success fw-bold">
+        Its price is Rs @Model.Price.
+    </p>
+
+    <!-- Buttons -->
+    <div class="mt-4">
+        <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id"
+           class="btn btn-warning">
+            🛒 Add to Cart
+        </a>
+
+        <a asp-action="Index" class="btn btn-secondary ms-2">
+            ⬅ Back
+        </a>
+    </div>
+
+</div>
+
+<!-- JS for Image Switching -->
+<script>
+    function showFront() {
+        document.getElementById("productImage").src = "@Model.FrontImageUrl";
+    }
+
+    function showBack() {
+        document.getElementById("productImage").src = "@Model.BackImageUrl";
+    }
+</script>

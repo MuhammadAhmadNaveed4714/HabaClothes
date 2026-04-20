@@ -1,0 +1,105 @@
+﻿@* 
+
+<h2>@ViewData["Title"]</h2>
+@{
+    ViewData["Title"] = "About Us";
+}
+
+<div class="container mt-5">
+    <h1 class="display-4 mb-4">💡 About Us</h1>
+    <p class="lead">
+        This is a sample About page for our WebApp3 project.
+        Here, you can write about the purpose of the project, the technologies used, and your goals.
+    </p>
+
+    <h3>Project Details:</h3>
+    <ul>
+        <li>Developed using ASP.NET Core MVC</li>
+        <li>Uses SQL Server LocalDB for database</li>
+        <li>Implements basic CRUD operations and state management</li>
+    </ul>
+
+    <p>
+        Thank you for visiting our project. We hope you find it informative and helpful!
+    </p>
+</div> *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@{
+    ViewData["Title"] = "About Us";
+}
+
+<div class="container mt-5">
+
+    <!-- Heading -->
+    <h1 class="display-4 text-center mb-4">👕 About Haba Clothes</h1>
+
+    <p class="lead text-center mb-5">
+        Welcome to <strong>Haba Clothes</strong> — your trusted destination for stylish and comfortable children's wear.
+    </p>
+
+    <div class="row align-items-center">
+
+        <!-- Image Section (Logo / Brand Image) -->
+        <div class="col-md-6 mb-4 text-center">
+            <!-- 👉 Yahan apni image lagani hai -->
+            <img src="/images/hblog.jpeg"
+                 alt="Haba Clothes Logo"
+                 class="img-fluid rounded shadow about-img"
+                 style="max-height:350px; object-fit:cover;" />
+        </div>
+
+        <!-- Content Section -->
+        <div class="col-md-6">
+
+            <h3>👶 Our Brand</h3>
+            <p>
+                <strong>Haba Clothes</strong> is a dedicated children's wear brand offering stylish, comfortable,
+                and high-quality outfits for kids.
+            </p>
+
+            <h4>📏 Available Sizes</h4>
+            <p>
+                We provide clothing for children ranging from
+                <strong>3–4 years to 12–14 years</strong>.
+            </p>
+
+            <h4>✨ Quality & Affordability</h4>
+            <p>
+                Our mission is to deliver <strong>premium quality fabrics</strong> at
+                <strong>affordable prices</strong>, ensuring comfort and style for every child.
+            </p>
+
+            <h4>🛒 Easy Ordering</h4>
+            <p>
+                You can easily place your orders <strong>online</strong> and get your favorite outfits delivered conveniently.
+            </p>
+
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .about-img {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 15px;
+    }
+
+        .about-img:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+</style>

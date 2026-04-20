@@ -1,0 +1,137 @@
+﻿@using WebApp3.Models
+@using Newtonsoft.Json
+
+@{
+    // Get the cart cookie safely
+    var cookieValue = Context.Request.Cookies["Cart"];
+    List<CartItem> cart = new List<CartItem>();
+
+    if (!string.IsNullOrEmpty(cookieValue))
+    {
+        try
+        {
+            cart = JsonConvert.DeserializeObject<List<CartItem>>(cookieValue) ?? new List<CartItem>();
+        }
+        catch
+        {
+            // Ignore error if cookie is invalid
+            cart = new List<CartItem>();
+        }
+    }
+
+    // Count of items in cart
+    int cartCount = cart.Count;
+}
+<style>
+    /* Glassmorphism Effect */
+    .navbar-custom {
+        background: #D1E7DD;
+        backdrop-filter: blur(10px);
+        box-shadow: 8px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    /* Logo lift effect */
+    .navbar-brand {
+        display: inline-block; /* ensure transform works properly */
+        transition: transform 0.3s ease, color 0.3s ease; /* smooth animation */
+    }
+
+        .navbar-brand:hover {
+            transform: translateY(-5px); /* moves logo 5px upwards */
+            color: #ff6600; /* optional: change color on hover */
+        }
+    .nav-link {
+        font-size: 17px;
+        font-weight: 500;
+        padding: 10px 15px;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .nav-link:hover {
+            color: #06CF9C !important;
+            transform: translateY(-2px);
+        }
+
+    /* Mobile Menu Customization */
+    .navbar-toggler {
+        border: none;
+        outline: none;
+    }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+    /* Product card hover effect */
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-10px); /* upar move */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* shadow for depth */
+        }
+
+    .product-img {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 12px;
+    }
+
+        .product-img:hover {
+            transform: translateY(-10px); /* 👈 upar uthay ga */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+    .product-img:hover {
+        transform: translateY(-10px) scale(1.03);
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container">
+        <!-- Brand Logo -->
+        <a class="navbar-brand fw-bold text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+            <i class="fas fa-shirt"></i> Haba Clothes
+        </a>
+
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler text-white" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Navbar Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Home" asp-action="About">
+                        <i class="fas fa-lightbulb"></i>About Us
+                    </a>
+                </li>
+
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index">
+                        <i class="fas fa-box"></i> Products
+                    </a>
+                </li>
+
+                <!-- Cart Link with Count -->
+                <li class="nav-item position-relative">
+                    <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Cart">
+                        <i class="fas fa-shopping-cart position-relative"></i>
+                        Cart (@cartCount)
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">
+                        <i class="fas fa-envelope"></i> Contact Us
+                    </a>
+                </li>
+            </ul>
+
+           
+        </div>
+    </div>
+</nav>

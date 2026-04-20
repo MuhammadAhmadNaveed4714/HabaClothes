@@ -1,0 +1,106 @@
+﻿@* 
+
+<h2>@ViewData["Title"]</h2>
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="container mt-5">
+    <h1 class="display-4 mb-4">📬 Contact Us</h1>
+    <p class="lead">
+        We would love to hear from you! Reach out to us through any of the following methods:
+    </p>
+
+    <h3>Contact Information:</h3>
+    <ul>
+        <li>Email : <a href="habaclothes777@gmail.com">habaclothes777@gmail.com</a></li>
+        <li>WhatsApp : +92 319 5878476</li>
+        <li>Instagram : habaclothes </li>
+        <li>Facebook : habaclothes </li>
+    </ul>
+
+    
+</div> *@
+
+
+
+
+
+
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="container mt-5">
+
+    <h1 class="display-4 mb-4 text-center">📬 Contact Us</h1>
+
+    <p class="lead text-center mb-5">
+        We would love to hear from you! Reach out to us through any of the following methods:
+    </p>
+
+    <div class="row text-center">
+
+        <!-- Email -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm contact-card p-3">
+                <i class="fas fa-envelope fa-2x text-primary mb-2"></i>
+                <h5>Email</h5>
+                <a href="mailto:habaclothes777@gmail.com">
+                    habaclothes777@gmail.com
+                </a>
+            </div>
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm contact-card p-3">
+                <i class="fab fa-whatsapp fa-2x text-success mb-2"></i>
+                <h5>WhatsApp</h5>
+                <p>+92 319 5878476</p>
+            </div>
+        </div>
+
+        <!-- Instagram -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm contact-card p-3">
+                <i class="fab fa-instagram fa-2x text-danger mb-2"></i>
+                <h5>Instagram</h5>
+                <p>habaclothes</p>
+            </div>
+        </div>
+
+        <!-- Facebook -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm contact-card p-3">
+                <i class="fab fa-facebook fa-2x text-primary mb-2"></i>
+                <h5>Facebook</h5>
+                <p>habaclothes</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .contact-card {
+        border-radius: 15px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .contact-card a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+            .contact-card a:hover {
+                color: #007bff;
+            }
+</style>
